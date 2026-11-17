@@ -1,0 +1,28 @@
+#!/bin/bash
+# fail2ban ignorecommand for the [mail-spray-guard] jail.
+# exit 0 = do NOT ban (known-good address, or the address is in one of your home countries)
+# exit 1 = ban
+set -u
+ip="${1:-}"
+[ -n "$ip" ] || exit 1
+
+CONF=${MSG_CONF:-/etc/mail-spray-guard.conf}
+HOME_COUNTRIES="EG"
+GEOIP_DB=/usr/share/GeoIP/GeoLite2-Country.mmdb
+GOODIPS=/etc/fail2ban/jail.d/zz-mail-spray-guard-goodips.local
+# shellcheck disable=SC1090
+[ -r "$CONF" ] && . "$CONF"
+
+# 1. addresses that logged in successfully recently
+[ -r "$GOODIPS" ] && grep -qw -- "$ip" "$GOODIPS" && exit 0
+
+# 2. home countries
+cc=$(mmdblookup --file "$GEOIP_DB" --ip "$ip" country iso_code 2>/dev/null | grep -oE '"[A-Z]{2}"' | tr -d '"')
+if [ -z "$cc" ]; then
+  # unknown country: be safe, do not ban on a single attempt (the -home jail still applies)
+  exit 0
+fi
+for c in $HOME_COUNTRIES; do
+  [ "$cc" = "$c" ] && exit 0
+done
+exit 1

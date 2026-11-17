@@ -1,0 +1,29 @@
+# mail-spray-guard — two layers.
+#
+# 1) mail-spray-guard: ONE failed login from outside your home countries = long ban.
+#    Password-spraying botnets try one password per address per IP, so "5 failures" rules never fire.
+#    Users at home are never touched by this layer (see bin/msg-ignore-home).
+#
+# 2) mail-spray-guard-home: the classic rule for everyone else (many failures in a short time),
+#    with a shorter ban. Addresses that logged in successfully recently are never banned (bin/msg-goodips).
+
+[mail-spray-guard]
+enabled       = true
+filter        = mail-spray-guard
+logpath       = /var/log/maillog
+backend       = auto
+maxretry      = 1
+findtime      = 1d
+bantime       = 30d
+ignorecommand = /usr/local/sbin/msg-ignore-home <ip>
+
+[mail-spray-guard-home]
+enabled            = true
+filter             = mail-spray-guard
+logpath            = /var/log/maillog
+backend            = auto
+maxretry           = 8
+findtime           = 10m
+bantime            = 1h
+bantime.increment  = true
+bantime.maxtime    = 1w

@@ -1,0 +1,2 @@
+# refresh the known-good list daily, then reload fail2ban
+15 4 * * * root /usr/local/sbin/msg-goodips && fail2ban-client reload >/dev/null 2>&1

@@ -1,0 +1,6 @@
+Nov 12 03:14:07 mx dovecot[2211]: imap-login: Disconnected: Connection closed (auth failed, 1 attempts in 2 secs): user=<accounts@example.com>, method=PLAIN, rip=203.0.113.17, lip=192.0.2.10, TLS, session=<a1b2c3>
+Nov 12 03:14:09 mx dovecot[2211]: pop3-login: Disconnected: Aborted login (auth failed, 1 attempts in 4 secs): user=<sales@example.com>, method=PLAIN, rip=198.51.100.44, lip=192.0.2.10, TLS, session=<d4e5f6>
+Nov 12 03:15:31 mx postfix/submission/smtpd[3301]: warning: unknown[203.0.113.99]: SASL LOGIN authentication failed: UGFzc3dvcmQ6, sasl_username=info@example.com
+Nov 12 03:16:02 mx postfix/smtpd[3302]: warning: host.example.net[198.51.100.7]: SASL PLAIN authentication failed: , sasl_username=hr@example.com
+Nov 12 08:01:44 mx dovecot[2211]: imap-login: Login: user=<accounts@example.com>, method=PLAIN, rip=192.0.2.55, lip=192.0.2.10, mpid=4411, TLS, session=<g7h8i9>
+Nov 12 08:02:10 mx postfix/submission/smtpd[3310]: 4F1A2B3C4D: client=office.example.com[192.0.2.56], sasl_method=PLAIN, sasl_username=accounts@example.com

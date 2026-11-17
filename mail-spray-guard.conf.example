@@ -1,0 +1,16 @@
+# /etc/mail-spray-guard.conf — read by msg-ignore-home and msg-goodips
+
+# ISO country codes where your users really are (space separated)
+HOME_COUNTRIES="EG"
+
+# GeoLite2 / DB-IP country database in MaxMind format
+GEOIP_DB=/usr/share/GeoIP/GeoLite2-Country.mmdb
+
+# How many days of successful logins make an address "known good"
+DAYS=14
+
+# Always ignored (your own server, office static IPs, monitoring)
+ALWAYS_IGNORE="127.0.0.1/8 ::1"
+
+MAILLOG=/var/log/maillog
+GOODIPS=/etc/fail2ban/jail.d/zz-mail-spray-guard-goodips.local
