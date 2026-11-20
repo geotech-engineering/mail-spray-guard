@@ -30,7 +30,7 @@ Background and the real incident this came from: **[Password spraying through re
 ## Install
 
 ```bash
-git clone https://github.com/geotech-dev/mail-spray-guard.git
+git clone https://github.com/geotech-engineering/mail-spray-guard.git
 cd mail-spray-guard
 sudo cp mail-spray-guard.conf.example /etc/mail-spray-guard.conf   # then edit HOME_COUNTRIES
 sudo ./install.sh
